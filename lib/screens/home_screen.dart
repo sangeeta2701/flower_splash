@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splash_screen/screens/detail_screen.dart';
+import 'package:splash_screen/screens/profile_screen.dart';
 
 import 'login_screen.dart';
 
@@ -17,9 +18,24 @@ class HomeScreen extends StatelessWidget {
           style: TextStyle(
               fontSize: 25, fontWeight: FontWeight.bold, color: Colors.black),
         ),
+        leading: IconButton(
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          icon: Icon(
+            Icons.arrow_back_ios,
+          ),
+        ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ProfileScreen(),
+                ),
+              );
+            },
             icon: Icon(Icons.account_circle_outlined),
           ),
           IconButton(
@@ -32,7 +48,7 @@ class HomeScreen extends StatelessWidget {
         ],
         backgroundColor: Colors.transparent,
         elevation: 0,
-        toolbarHeight: 100,
+        toolbarHeight: 80,
         flexibleSpace: Container(
           decoration: BoxDecoration(
             color: Colors.blue.shade100,

@@ -63,7 +63,7 @@ class DetailScreen extends StatelessWidget {
           ),
           backgroundColor: Colors.transparent,
           elevation: 0,
-          toolbarHeight: 100,
+          toolbarHeight: 80,
           flexibleSpace: Container(
             decoration: BoxDecoration(
               color: Colors.blue.shade100,
