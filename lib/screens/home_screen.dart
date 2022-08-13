@@ -47,8 +47,16 @@ class HomeScreen extends StatelessWidget {
           children: [
             GestureDetector(
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => DetailScreen()));
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(
+                        image: "assets/rose.jpg",
+                        title: "Dozen Pink Roses Bouquet",
+                        description:
+                            "This is a bunch of 12 Pink Roses wrapped with a pretty ribbon. Pink roses signify elegance, gentility, and poetic romance, without the seriousness signified by red. They present a pretty way to show your care to your some one special."),
+                  ),
+                );
               },
               child: Container(
                 height: 200,
@@ -63,15 +71,29 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-            Container(
-              height: 200,
-              width: 200,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.grey, width: 1),
-                borderRadius: BorderRadius.circular(10),
-                image: DecorationImage(
-                  fit: BoxFit.cover,
-                  image: AssetImage("assets/orc.jpg"),
+            GestureDetector(
+              onTap: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => DetailScreen(
+                        image: "assets/orc.jpg",
+                        title: "Blooming Beauty",
+                        description:
+                            "The bunch of orchids is heart crafted, especially for your near and dear ones. Adore them! Respect them! Honour them! And make them realise how much lucky you are to have them in your life. Send them this token of love and express all your unsaid feelings!"),
+                  ),
+                );
+              },
+              child: Container(
+                height: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.grey, width: 1),
+                  borderRadius: BorderRadius.circular(10),
+                  image: DecorationImage(
+                    fit: BoxFit.cover,
+                    image: AssetImage("assets/orc.jpg"),
+                  ),
                 ),
               ),
             ),
