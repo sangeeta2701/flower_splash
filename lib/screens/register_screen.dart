@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:splash_screen/screens/login_screen.dart';
+import 'package:http/http.dart' as http;
 
 import '../text_field_input.dart';
 
@@ -11,13 +12,32 @@ class RegisterScreen extends StatefulWidget {
 }
 
 class _RegisterScreenState extends State<RegisterScreen> {
-  final TextEditingController _userNameController = TextEditingController();
-
   final TextEditingController _emailController = TextEditingController();
 
   final TextEditingController _passwordController = TextEditingController();
 
-  //
+  //register user
+  Future<void> signup() async {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
+      var response =
+          await http.post(Uri.parse("https://reqres.in/api/register"),
+              body: ({
+                'email': _emailController.text,
+                'password': _passwordController.text,
+              }));
+      if (response.statusCode == 200) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => LoginScreen()));
+      } else {
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text("Enter valid credentials")));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Please enter required information")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -49,18 +69,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 width: MediaQuery.of(context).size.width,
                 margin: const EdgeInsets.only(left: 20, right: 20),
                 child: TextInput(
-                  lableText: "Username",
-                  icon: Icons.person,
-                  controller: _userNameController,
-                ),
-              ),
-              const SizedBox(
-                height: 15,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width,
-                margin: const EdgeInsets.only(left: 20, right: 20),
-                child: TextInput(
                   lableText: "Email",
                   icon: Icons.email,
                   controller: _emailController,
@@ -75,7 +83,8 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   child: TextInput(
                       controller: _passwordController,
                       lableText: "Password",
-                      icon: Icons.lock)),
+                      icon: Icons.lock,
+                      isObsecure: true)),
               const SizedBox(
                 height: 25,
               ),
@@ -89,10 +98,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                   ),
                 ),
                 child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => LoginScreen()));
-                  },
+                  onTap: signup,
                   child: const Center(
                     child: Text(
                       "Register",

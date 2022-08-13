@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:splash_screen/screens/detail_screen.dart';
 
+import 'login_screen.dart';
+
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
@@ -21,7 +23,10 @@ class HomeScreen extends StatelessWidget {
             icon: Icon(Icons.account_circle_outlined),
           ),
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => LoginScreen()));
+            },
             icon: Icon(Icons.logout),
           ),
         ],

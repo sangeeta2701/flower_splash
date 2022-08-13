@@ -2,12 +2,39 @@ import 'package:flutter/material.dart';
 import 'package:splash_screen/screens/home_screen.dart';
 import 'package:splash_screen/screens/register_screen.dart';
 import 'package:splash_screen/text_field_input.dart';
+import 'package:http/http.dart' as http;
 
-class LoginScreen extends StatelessWidget {
+class LoginScreen extends StatefulWidget {
   LoginScreen({Key? key}) : super(key: key);
 
+  @override
+  State<LoginScreen> createState() => _LoginScreenState();
+}
+
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController _emailController = TextEditingController();
+
   final TextEditingController _passwordController = TextEditingController();
+
+  //login user
+  Future<void> loginUser() async {
+    if (_emailController.text.isNotEmpty &&
+        _passwordController.text.isNotEmpty) {
+      var response = await http.post(Uri.parse("https://reqres.in/api/login"),
+          body: ({
+            'email': _emailController.text,
+            'password': _passwordController.text,
+          }));
+      // print(response);
+      if (response.statusCode == 200) {
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text("Please enter required information")));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -67,10 +94,7 @@ class LoginScreen extends StatelessWidget {
                   ),
                 ),
                 child: InkWell(
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomeScreen()));
-                  },
+                  onTap: loginUser,
                   child: const Center(
                     child: Text(
                       "Login",
